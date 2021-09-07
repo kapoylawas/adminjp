@@ -64,7 +64,7 @@ class ListPesanan extends Component {
                               </p>
                           </td>
                           <td>
-                              <a href={getListPesananResult[key].url} className="btn btn-primary" target="_blank">
+                              <a href={getListPesananResult[key].url} className="btn btn-primary">
                                   <i className="nc-icon nc-money-coins"> Midtrans</i>
                               </a>
                           </td>
