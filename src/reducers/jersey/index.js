@@ -33,7 +33,7 @@ import {
     deleteJerseyError: false,
   };
   
-  export default function (state = initialState, action) {
+  export default function foo(state = initialState, action) {
     switch (action.type) {
       case GET_LIST_JERSEY:
         return {
