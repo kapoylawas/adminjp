@@ -42,7 +42,7 @@ class Finish extends Component {
   }
 
   toHistory = () => {
-    window.ReactNativeWebview.postMessage('Selesai');
+    window.ReactNativeWebView.postMessage('Selesai');
   }
 
   render() {
