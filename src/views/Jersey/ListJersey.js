@@ -1,83 +1,87 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
+  Button,
   Card,
   CardBody,
   CardHeader,
   CardTitle,
   Col,
   Row,
-  Table,
-  Button,
   Spinner,
+  Table,
 } from "reactstrap";
-import { getListLiga, deleteLiga } from "actions/LigaAction";
 import { Link } from "react-router-dom";
+import {deleteJersey, getListJersey} from '../../actions/JerseyAction'
 import swal from "sweetalert";
 
-class ListLiga extends Component {
+class ListJersey extends Component {
   componentDidMount() {
-    this.props.dispatch(getListLiga());
+    this.props.dispatch(getListJersey());
   }
 
-  removeData = (image, id) => {
-
-    this.props.dispatch(deleteLiga(image, id))
-  };
-
   componentDidUpdate(prevProps) {
-    const { deleteLigaResult } = this.props;
+    const {deleteJerseyResult} = this.props;
 
-    if(deleteLigaResult && prevProps.deleteLigaResult !== deleteLigaResult) {
-      swal("Sukses!", deleteLigaResult, "success");
-      this.props.dispatch(getListLiga());
+    if(deleteJerseyResult && prevProps.deleteJerseyResult !== deleteJerseyResult) {
+      swal("Sukses!", deleteJerseyResult, "success");
+      this.props.dispatch(getListJersey());
     }
   }
 
+  removeData = (images, key) => {
+    this.props.dispatch(deleteJersey(images, key));
+  }
+
   render() {
-    const { getListLigaError, getListLigaLoading, getListLigaResult } =
-      this.props;
+    const { getListJerseyError, getListJerseyLoading, getListJerseyResult } = this.props
     return (
       <div className="content">
         <Row>
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Master Liga</CardTitle>
+                <CardTitle tag="h4"> </CardTitle>
                 <Link
-                  to="/admin/liga/tambah"
+                  to="/admin/jersey/tambah"
                   className="btn btn-primary float-left"
                 >
-                  Tambah Liga
+                  Tambah Jersey
                 </Link>
               </CardHeader>
               <CardBody>
                 <Table>
                   <thead className="text-primary">
                     <tr>
-                      <th>Logo</th>
-                      <th>Nama Liga</th>
+                      <th>Foto</th>
+                      <th>Nama Jersey</th>
+                      <th>Harga</th>
+                      <th>Berat</th>
+                      <th>Jenis</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {getListLigaResult ? (
-                      Object.keys(getListLigaResult).map((key) => (
+                  {getListJerseyResult ? (
+                      Object.keys(getListJerseyResult).map((key) => (
                         //data tampil
                         <tr key={key}>
                           <td>
                             <img
-                              src={getListLigaResult[key].image}
+                              src={getListJerseyResult[key].gambar[0]}
                               width="100"
-                              alt={getListLigaResult[key].namaLiga}
+                              alt={getListJerseyResult[key].nama}
                             />
                           </td>
-                          <td>{getListLigaResult[key].namaLiga}</td>
+                          <td>{getListJerseyResult[key].nama}</td>
+                          <td>Rp. {getListJerseyResult[key].harga}</td>
+                          <td>{getListJerseyResult[key].berat} kg</td>
+                          <td>{getListJerseyResult[key].jenis} </td>
                           <td>
                             <Link
                               className="btn btn-warning"
-                              to={"/admin/liga/edit/" + key}
+                              to={"/admin/jersey/edit/" + key}
                             >
                               <i className="nc-icon nc-ruler-pencil"></i> Edit
                             </Link>
@@ -85,35 +89,30 @@ class ListLiga extends Component {
                             <Button
                               color="danger"
                               className="ml-2"
-                              onClick={() =>
-                                this.removeData(
-                                  getListLigaResult[key].image,
-                                  key
-                                )
-                              }
+                              onClick={() => this.removeData(getListJerseyResult[key].gambar, key)}
                             >
                               <i className="nc-icon nc-basket"></i> Hapus
                             </Button>
                           </td>
                         </tr>
                       ))
-                    ) : getListLigaLoading ? (
+                    ) : getListJerseyLoading ? (
                       //spinner loading
                       <tr>
-                        <td colSpan="3" align="center">
+                        <td colSpan="6" align="center">
                           <Spinner color="primary" />
                         </td>
                       </tr>
-                    ) : getListLigaError ? (
+                    ) : getListJerseyError ? (
                       //error tampil
                       <tr>
-                        <td colSpan="3" align="center">
-                          {getListLigaError}
+                        <td colSpan="6" align="center">
+                          {getListJerseyError}
                         </td>
                       </tr>
                     ) : (
                       <tr>
-                        <td colSpan="3" align="center">
+                        <td colSpan="6  " align="center">
                           Data Kosong
                         </td>
                       </tr>
@@ -130,13 +129,13 @@ class ListLiga extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  getListLigaLoading: state.LigaReducer.getListLigaLoading,
-  getListLigaResult: state.LigaReducer.getListLigaResult,
-  getListLigaError: state.LigaReducer.getListLigaError,
+    getListJerseyLoading: state.JerseyReducer.getListJerseyLoading,
+    getListJerseyResult: state.JerseyReducer.getListJerseyResult,
+    getListJerseyError: state.JerseyReducer.getListJerseyError,
 
-  deleteLigaLoading: state.LigaReducer.deleteLigaLoading,
-  deleteLigaResult: state.LigaReducer.deleteLigaResult,
-  deleteLigaError: state.LigaReducer.deleteLigaError,
+    deleteJerseyLoading: state.JerseyReducer.deleteJerseyLoading,
+    deleteJerseyResult: state.JerseyReducer.deleteJerseyResult,
+    deleteJerseyError: state.JerseyReducer.deleteJerseyError,
 });
 
-export default connect(mapStateToProps, null)(ListLiga);
+export default connect(mapStateToProps, null)(ListJersey);

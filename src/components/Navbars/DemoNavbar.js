@@ -19,23 +19,17 @@
 import { LogOutUser } from "actions/AuthAction";
 import React from "react";
 import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Container,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-  Input,
 } from "reactstrap";
 
 import routes from "routes.js";

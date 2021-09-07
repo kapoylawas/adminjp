@@ -48,7 +48,7 @@ function Footer(props) {
           </nav>
           <div className="credits ml-auto">
             <div className="copyright">
-              &copy; {1900 + new Date().getYear()}, {" "}
+              &copy; {1900 + new Date().getYear()} {" "}
               <i className="fa fa-heart heart" />
             </div>
           </div>

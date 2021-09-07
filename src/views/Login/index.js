@@ -63,7 +63,7 @@ class Login extends Component {
                             <form onSubmit={(event) => this.handleSubmit(event)}>
 
                                 <FormGroup>
-                                    <Label for="email">Email Address (arif.sangga@gmail.com)</Label>
+                                    <Label for="email">Email Address</Label>
                                     <Input 
                                     type="email" 
                                     name="email" 
@@ -74,7 +74,7 @@ class Login extends Component {
                                 </FormGroup>
 
                                 <FormGroup>
-                                    <Label for="password">Password (rahasia)</Label>
+                                    <Label for="password">Password</Label>
                                     <Input 
                                     type="password" 
                                     name="password" 
